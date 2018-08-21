@@ -9,6 +9,34 @@ namespace Tests.Aleab.Common.Extensions
 {
     public class MathExtensionsTests
     {
+        #region Static members
+
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        private static void TestClamp<T>(T value, T min, T max, T expectedResult) where T : IComparable
+        {
+            // ReSharper disable once InvokeAsExtensionMethod
+            T actualResult = MathExtensions.Clamp(value, min, max);
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        private static void TestClampRange<T>(T value, Range<T>? range, T expectedResult) where T : IComparable
+        {
+            // ReSharper disable once InvokeAsExtensionMethod
+            T actualResult = MathExtensions.Clamp(value, range);
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        private static void TestClampRange<T>(T value, Range<int>? range, T expectedResult, IEqualityComparer<T> equalityComparer = null) where T : IComparable
+        {
+            // ReSharper disable once InvokeAsExtensionMethod
+            T actualResult = MathExtensions.Clamp(value, range?.CastToType(equalityComparer));
+            Assert.Equal(expectedResult, actualResult);
+        }
+
+        #endregion
+
         #region TEST – AddEpsilon()
 
         [Theory]
@@ -53,34 +81,6 @@ namespace Tests.Aleab.Common.Extensions
                 Assert.Equal(negativeEpsilon ? -double.Epsilon : double.Epsilon, result);
             else
                 Assert.True(negativeEpsilon ? result < value : result > value);
-        }
-
-        #endregion
-
-        #region Static members
-
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        private static void TestClamp<T>(T value, T min, T max, T expectedResult) where T : IComparable
-        {
-            // ReSharper disable once InvokeAsExtensionMethod
-            T actualResult = MathExtensions.Clamp(value, min, max);
-            Assert.Equal(expectedResult, actualResult);
-        }
-
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        private static void TestClampRange<T>(T value, Range<T>? range, T expectedResult) where T : IComparable
-        {
-            // ReSharper disable once InvokeAsExtensionMethod
-            T actualResult = MathExtensions.Clamp(value, range);
-            Assert.Equal(expectedResult, actualResult);
-        }
-
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        private static void TestClampRange<T>(T value, Range<int>? range, T expectedResult, IEqualityComparer<T> equalityComparer = null) where T : IComparable
-        {
-            // ReSharper disable once InvokeAsExtensionMethod
-            T actualResult = MathExtensions.Clamp(value, range?.CastToType(equalityComparer));
-            Assert.Equal(expectedResult, actualResult);
         }
 
         #endregion
