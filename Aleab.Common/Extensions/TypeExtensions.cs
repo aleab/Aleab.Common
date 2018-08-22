@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace Aleab.Common.Extensions
 {
@@ -20,7 +21,9 @@ namespace Aleab.Common.Extensions
             typeof(long),
             typeof(ulong),
             typeof(float),
-            typeof(double)
+            typeof(double),
+            typeof(BigInteger),
+            typeof(Complex)
         };
 
         private static HashSet<Type> IntegerTypes { get; } = new HashSet<Type>
@@ -32,7 +35,8 @@ namespace Aleab.Common.Extensions
             typeof(int),
             typeof(uint),
             typeof(long),
-            typeof(ulong)
+            typeof(ulong),
+            typeof(BigInteger)
         };
 
         #endregion
