@@ -102,6 +102,11 @@ namespace Aleab.Common.Extensions
             return IntegerTypes.Contains(type);
         }
 
+        public static object GetDefault(this Type type)
+        {
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
+        }
+
         #endregion
     }
 }
