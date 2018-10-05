@@ -28,13 +28,13 @@ namespace Aleab.Common.Net.WebSockets
         public async Task StopAsync()
         {
             if (this.webHost != null)
-                await this.webHost.StopAsync();
+                await this.webHost.StopAsync().ConfigureAwait(false);
         }
 
         public async Task StopAsync(TimeSpan timeout)
         {
             if (this.webHost != null)
-                await this.webHost.StopAsync(timeout);
+                await this.webHost.StopAsync(timeout).ConfigureAwait(false);
         }
     }
 }

@@ -88,7 +88,7 @@ namespace Aleab.Common.Net
 
         public async Task<T> GetDataAsync<T>(string url, Dictionary<string, string> headers = null) where T : BaseModel
         {
-            Tuple<ResponseInfo, T> response = await this.GetJsonAsync<T>(url, headers);
+            Tuple<ResponseInfo, T> response = await this.GetJsonAsync<T>(url, headers).ConfigureAwait(false);
             if (response.Item1.StatusCode != HttpStatusCode.OK)
             {
                 // TODO: Handle non-OK status codes
@@ -103,7 +103,7 @@ namespace Aleab.Common.Net
             where T : Collection<TElem>, new()
             where TElem : BaseModel
         {
-            Tuple<ResponseInfo, List<TElem>> response = await this.GetJsonAsync<List<TElem>>(url, headers);
+            Tuple<ResponseInfo, List<TElem>> response = await this.GetJsonAsync<List<TElem>>(url, headers).ConfigureAwait(false);
             if (response.Item1.StatusCode != HttpStatusCode.OK)
             {
                 // TODO: Handle non-OK status codes
@@ -147,7 +147,7 @@ namespace Aleab.Common.Net
                     Headers = response.Headers,
                     StatusCode = response.StatusCode,
                     ReasonPhrase = response.ReasonPhrase
-                }, await response.Content.ReadAsByteArrayAsync());
+                }, await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false));
             }
         }
 
@@ -159,7 +159,7 @@ namespace Aleab.Common.Net
         {
             string json = JsonConvert.SerializeObject(contentData, this.JsonSettings);
 
-            Tuple<ResponseInfo, string> response = await this.PostJsonAsync<string>(url, json, headers);
+            Tuple<ResponseInfo, string> response = await this.PostJsonAsync<string>(url, json, headers).ConfigureAwait(false);
             if (response.Item1.StatusCode != HttpStatusCode.OK)
             {
                 // TODO: Handle non-OK status codes
@@ -172,7 +172,7 @@ namespace Aleab.Common.Net
         {
             string json = JsonConvert.SerializeObject(contentData, this.JsonSettings);
 
-            Tuple<ResponseInfo, TRes> response = await this.PostJsonAsync<TRes>(url, json, headers);
+            Tuple<ResponseInfo, TRes> response = await this.PostJsonAsync<TRes>(url, json, headers).ConfigureAwait(false);
             if (response.Item1.StatusCode != HttpStatusCode.OK)
             {
                 // TODO: Handle non-OK status codes
@@ -220,7 +220,7 @@ namespace Aleab.Common.Net
                     Headers = response.Headers,
                     StatusCode = response.StatusCode,
                     ReasonPhrase = response.ReasonPhrase
-                }, await response.Content.ReadAsByteArrayAsync());
+                }, await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false));
             }
         }
 

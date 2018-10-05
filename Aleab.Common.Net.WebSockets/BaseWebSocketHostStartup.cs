@@ -41,18 +41,18 @@ namespace Aleab.Common.Net.WebSockets
             {
                 if (context.WebSockets.IsWebSocketRequest)
                 {
-                    WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                    WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync().ConfigureAwait(false);
                     if (this.ShouldAcceptConnection(context, webSocket))
                     {
                         this.OnWebSocketConnected(context, webSocket);
 
-                        await this.ConfigureWebSocketRequestPipeline(context, next, webSocket);
+                        await this.ConfigureWebSocketRequestPipeline(context, next, webSocket).ConfigureAwait(false);
 
                         this.OnWebSocketClosed(context, webSocket);
                     }
                     else
                     {
-                        await webSocket.CloseAsync(WebSocketCloseStatus.Empty, string.Empty, CancellationToken.None);
+                        await webSocket.CloseAsync(WebSocketCloseStatus.Empty, string.Empty, CancellationToken.None).ConfigureAwait(false);
                         context.Response.StatusCode = 400;
                     }
                 }
